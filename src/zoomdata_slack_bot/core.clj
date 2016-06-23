@@ -7,7 +7,8 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]    
-            [ring.middleware.session :refer [wrap-session]])
+            [ring.middleware.session :refer [wrap-session]]
+            [environ.core :refer [env]])
   (:gen-class))
 
 
@@ -48,6 +49,9 @@
       wrap-session))
 
 (defn -main [& args]
-  (ring/run-jetty #'app {:port 3000 :join? false}))
+  (ring/run-jetty
+   #'app
+   {:port (Integer. (or port (env :port) 5000))
+    :join? false}))
 
   
