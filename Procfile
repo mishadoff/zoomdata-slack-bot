@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -jar target/zoomdata-slack-bot.jar

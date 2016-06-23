@@ -18,5 +18,6 @@
                              [lein-bikeshed "0.2.0"]
                              [lein-cloverage "1.0.6"]]}}
   :aot  [zoomdata-slack-bot.core]
+  :uberjar-name "zoomdata-slack-bot.jar"
   :main zoomdata-slack-bot.core
 )
