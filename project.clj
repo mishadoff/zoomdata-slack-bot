@@ -13,6 +13,7 @@
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler zoomdata-slack-bot.core/app}
 
+  :min-lein-version "2.0.0"
   :aot  [zoomdata-slack-bot.core]
   :uberjar-name "zoomdata-slack-bot.jar"
   :main zoomdata-slack-bot.core
