@@ -4,10 +4,9 @@
             [clj-http.client :as http]
             [compojure.route :as route]
             [ring.adapter.jetty :as ring]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.params :refer [wrap-params]]
-            [ring.middleware.keyword-params :refer [wrap-keyword-params]]    
-            [ring.middleware.session :refer [wrap-session]]
+            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
+            [ring.middleware.json :refer [wrap-json-response]]
             [environ.core :refer [env]])
   (:gen-class))
 
@@ -28,25 +27,25 @@
               (let [random-link
                     (format "http://live.zoomdata.com/zoomdata/service/screenshot/%s/%s"
                             source vis)]
-                {:attachments
-                 [{:title "Random Visualisation"
-                   :title_link (format "http://live.zoomdata.com/zoomdata/visualization#%s-%s"
-                                       source vis)
-                   :image_url random-link}]}))))
-
+                {:body
+                 {:attachments
+                  [{:title "Random Visualisation"
+                    :title_link (format "http://live.zoomdata.com/zoomdata/visualization#%s-%s"
+                                        source vis)
+                    :image_url random-link}]}}))))
+      
       ;; else
-      {:text (str "Sorry, something is broken!" "\n" (:body response))})))
+      {:body {:text (str "Sorry, something is broken!" "\n" (:body response))}})))
 
 (defroutes app-routes
-  (GET "/zoomdata" {params :params} (json/write-str (random-visualisation params)))
+  (GET "/zoomdata" {params :params} (random-visualisation params))
   (route/resources "/"))
 
 (def app
   (-> app-routes
-      (wrap-defaults site-defaults)
       wrap-keyword-params
       wrap-params
-      wrap-session))
+      wrap-json-response))
 
 (defn -main [& args]
   (ring/run-jetty
