@@ -13,10 +13,6 @@
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler zoomdata-slack-bot.core/app}
 
-  :profiles {:dev {:plugins [[jonase/eastwood "0.2.1"]
-                             [lein-kibit "0.1.2"]
-                             [lein-bikeshed "0.2.0"]
-                             [lein-cloverage "1.0.6"]]}}
   :aot  [zoomdata-slack-bot.core]
   :uberjar-name "zoomdata-slack-bot.jar"
   :main zoomdata-slack-bot.core
