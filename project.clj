@@ -17,6 +17,6 @@
   :min-lein-version "2.0.0"
   :aot  [zoomdata-slack-bot.core]
   :uberjar-name "zoomdata-slack-bot.jar"
-  :hooks [environ.leiningen.hooks]
+  ;;  :hooks [environ.leiningen.hooks]
   :main zoomdata-slack-bot.core
 )

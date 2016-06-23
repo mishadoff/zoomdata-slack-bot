@@ -51,7 +51,7 @@
 (defn -main [& args]
   (ring/run-jetty
    #'app
-   {:port (Integer. (or port (env :port) 5000))
+   {:port (Integer. (or (env :port) 5000))
     :join? false}))
 
   
